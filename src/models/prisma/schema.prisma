@@ -1,0 +1,29 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+model jobs {
+    id          Int       @id @default(autoincrement())
+    name        String?
+    daily_hours Int?
+    total_hours Int?
+    created_at  DateTime?
+}
+
+model profile {
+    id                Int     @id @default(autoincrement())
+    email             String  @unique
+    password          String
+    name              String?
+    avatar            String?
+    monthly_budget    Int?
+    days_per_week     Int?
+    hours_per_day     Int?
+    vacation_per_year Int?
+    value_hour        Float?
+}

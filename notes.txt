@@ -1,0 +1,22 @@
+// pode ser que der error porque eu retirei o ? que significa que o campo nao pode
+// ser null entao tem que fazer uma verificação para ganrantir que isso nao aconteça
+
+
+
+
+TODO
+
+[x] - Usar o Introspect do prisma pra gerar os model do db sqlite la so tem que botar a url e o generetar
+[x] - fazer midlleware requireAuth e redirectLogin
+[] - Atualizar os Models do Job Calc para ser utilizado o prisma na comunicação com o BD e ja criar a tabela e o model User e 
+     fazer os relacionamentos entre as tabelas talvez transformar tabela profile em user e fazer o user ter vários jobs!
+[x] - Fazer os formulários de registro e login parapara o Job Calc suportar múltiplos usuarios
+[] - Fazer a verificação nas rotas de edição criação e exclusão se o id do job que ta sendo requisitado a operação pertence ao usuário 
+     que ta logado se nao retornar error
+[] - Fazer um dark mode pro Jobs Calc com js que escreve no local srorage do navegador ou bo db do user? e sempre que o usuario mudar 
+     de pagina seja a jobs ou profile vai ser mostrado o darkmode
+[x] - /register vai requerer email,password,name! e ai redirect para /profile
+[x] - fazer verificação para os campos do profile caso estejam null so nao colocar no campo do form no ejs para cada campo ou para todos de uma vez
+[] - partials para exibir mensagens de error para o usuario!
+[] - fazer isso com bootstrap seila ?
+[] - trocar "/" por "/home" e criar uma pagina inicial simples ?

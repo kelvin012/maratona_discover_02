@@ -1,12 +1,15 @@
-const Database = require("../db/config")
+const { PrismaClient } = require("@prisma/client")
+const { hashPassword } = require("../utils/crypto")
+
+const prisma = new PrismaClient()
 
 module.exports = {
-  async get() {
-    const db = await Database()
-
-    const data = await db.get(`SELECT * FROM profile`)
-
-    await db.close()
+  async get(userId) {
+    const data = await prisma.profile.findUnique({
+      where: {
+        id: userId
+      }
+    })
 
     return {
       name: data.name,
@@ -19,19 +22,51 @@ module.exports = {
     }
   },
 
-  async update(newData) {
-    const db = await Database()
+  async create(newUser) {
+    try {
+      const userCreated = await prisma.profile.create({
+        data: {
+          email: newUser.email,
+          password: await hashPassword(newUser.password)
+        }
+      })
 
-    db.run(`UPDATE profile SET
-      name = "${newData.name}",
-      avatar = "${newData.avatar}",
-      monthly_budget = ${newData["monthly-budget"]},
-      days_per_week = ${newData["days-per-week"]},
-      hours_per_day = ${newData["hours-per-day"]},
-      vacation_per_year = ${newData["vacation-per-year"]},
-      value_hour = ${newData["value-hour"]}
-    `)
+      await prisma.$disconnect()
+      return userCreated
+    } catch (error) {
+      console.error(error)
+      await prisma.$disconnect()
+    }
+  },
 
-    await db.close()
+  async get_by_email(email) {
+    const user = await prisma.profile.findUnique({
+      where: {
+        email: email
+      }
+    })
+
+    if (user) {
+      return user
+    }
+  },
+
+  async update(userId, newData) {
+    await prisma.profile.update({
+      where: {
+        id: userId
+      },
+      data: {
+        name: newData.name,
+        avatar: newData.avatar,
+        monthly_budget: newData["monthly-budget"],
+        days_per_week: newData["days-per-week"],
+        hours_per_day: newData["hours-per-day"],
+        vacation_per_year: newData["vacation-per-year"],
+        value_hour: newData["value-hour"]
+      }
+    })
+
+    await prisma.$disconnect()
   }
 }

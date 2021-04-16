@@ -1,0 +1,23 @@
+button#sign {
+  margin-top: 10px;
+}
+
+input {
+  width: 30vw;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.div-flush {
+  /* background-color: green; */
+  width: 30vw;
+  padding: 10px;
+}
+
+.message-flush {
+  color: white;
+}
