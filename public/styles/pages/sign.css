@@ -16,6 +16,7 @@ input {
   /* background-color: green; */
   width: 30vw;
   padding: 10px;
+  margin-bottom: 15px;
 }
 
 .message-flush {

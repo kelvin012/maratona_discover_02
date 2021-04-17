@@ -20,3 +20,5 @@ TODO
 [] - partials para exibir mensagens de error para o usuario!
 [] - fazer isso com bootstrap seila ?
 [] - trocar "/" por "/home" e criar uma pagina inicial simples ?
+[] - atualizar o README.md tecnologias, feito por, explicando como tem que criar os 2 arquivos .env e configura-los
+[] - verificação de error no /register flush message email ja cadastrado

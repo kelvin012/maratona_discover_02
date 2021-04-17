@@ -35,8 +35,9 @@ module.exports = {
       await prisma.$disconnect()
       return userCreated
     } catch (error) {
-      console.error(error)
+      // console.error(error)
       await prisma.$disconnect()
+      return { error: true, code: error.code, meta: error.meta.target }
     }
   },
 

@@ -14,11 +14,19 @@ module.exports = {
       password: req.body.password
     })
 
+    if (userCreated.error) {
+      if (userCreated.code == "P2002") {
+        return res.render("signup", { message: "Email ja cadastrado!", color: "red" })
+      }
+
+      return res.render("signup", { message: "Error interno tente novamente.", color: "red" })
+    }
+
     userCreated.password = undefined
 
     req.session.user = userCreated
 
-    return res.send(userCreated)
+    return res.redirect("/profile")
   },
 
   async signup(req, res) {

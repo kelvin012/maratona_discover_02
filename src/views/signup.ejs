@@ -25,26 +25,32 @@
     <script type="module" src="/scripts/job-edit.js"></script>
   </head>
   <body id="page-job-edit">
-    <%- include('parts/page-header', {title: 'Registra-se'}) %>
+    <%- include('parts/sign-header', {title: 'Registre-se'}) %>
 
     <div class="container flex animate-up delay-2">
       <main>
         <form id="form-job" method="POST" action="/register">
           <fieldset>
-            <legend>Registra-se agora mesmo</legend>
+            <legend>Registre-se agora mesmo</legend>
             <div class="separator light"></div>
+
+            <% if (typeof message == "string") { %>
+            <div class="div-flush" style="background-color: <%= color %>">
+              <h3 class="message-flush"><%= message %></h3>
+            </div>
+            <% } %>
 
             <div class="input-wrapper">
               <label for="name">Nome</label>
-              <input type="text" id="name" name="name" placeholder="Nome" />
+              <input required type="text" id="name" name="name" placeholder="Nome" />
             </div>
             <div class="input-wrapper">
               <label for="email">Email</label>
-              <input type="text" id="email" name="email" placeholder="Email" />
+              <input required type="text" id="email" name="email" placeholder="Email" />
             </div>
             <div class="input-wrapper">
               <label for="password">Senha</label>
-              <input type="password" id="password" name="password" placeholder="Senha" />
+              <input required type="password" id="password" name="password" placeholder="Senha" />
             </div>
           </fieldset>
 

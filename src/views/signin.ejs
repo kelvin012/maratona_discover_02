@@ -25,7 +25,7 @@
     <script type="module" src="/scripts/job-edit.js"></script>
   </head>
   <body id="page-job-edit">
-    <%- include('parts/page-header', {title: 'Faça Login'}) %>
+    <%- include('parts/sign-header', {title: 'Faça Login'}) %>
 
     <div class="container flex animate-up delay-2">
       <main>
@@ -42,11 +42,11 @@
 
             <div class="input-wrapper">
               <label for="email">Email</label>
-              <input type="text" id="email" name="email" placeholder="Email" />
+              <input required type="text" id="email" name="email" placeholder="Email" />
             </div>
             <div class="input-wrapper">
               <label for="password">Senha</label>
-              <input type="password" id="password" name="password" placeholder="Senha" />
+              <input required type="password" id="password" name="password" placeholder="Senha" />
             </div>
           </fieldset>
 
