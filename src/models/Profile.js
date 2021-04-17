@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 
 module.exports = {
   async get(userId) {
-    const data = await prisma.profile.findUnique({
+    const data = await prisma.profile.findFirst({
       where: {
         id: userId
       }
@@ -26,6 +26,7 @@ module.exports = {
     try {
       const userCreated = await prisma.profile.create({
         data: {
+          name: newUser.name,
           email: newUser.email,
           password: await hashPassword(newUser.password)
         }
@@ -43,6 +44,25 @@ module.exports = {
     const user = await prisma.profile.findUnique({
       where: {
         email: email
+      }
+    })
+
+    if (user) {
+      return user
+    }
+  },
+
+  async get_by_email_include_posts(email) {
+    const user = await prisma.profile.findUnique({
+      where: {
+        email: email
+      },
+      select: {
+        jobs: {
+          select: {
+            id: true
+          }
+        }
       }
     })
 

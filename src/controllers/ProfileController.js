@@ -8,12 +8,17 @@ module.exports = {
   },
 
   async create(req, res) {
-    const teste = await Profile.create({
+    const userCreated = await Profile.create({
+      name: req.body.name,
       email: req.body.email,
       password: req.body.password
     })
 
-    return res.send(teste)
+    userCreated.password = undefined
+
+    req.session.user = userCreated
+
+    return res.send(userCreated)
   },
 
   async signup(req, res) {

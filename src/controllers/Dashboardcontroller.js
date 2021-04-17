@@ -5,7 +5,8 @@ const JobUtils = require("../utils/JobUtils")
 module.exports = {
   async index(req, res) {
     const { id } = req.session.user
-    const jobs = await Job.get()
+    const userId = req.session.user.id
+    const jobs = await Job.get(userId)
     const profile = await Profile.get(id)
 
     let statusCount = {

@@ -7,23 +7,26 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model jobs {
-    id          Int       @id @default(autoincrement())
+model Job {
+    id          Int     @id @default(autoincrement())
     name        String?
     daily_hours Int?
     total_hours Int?
-    created_at  DateTime?
+    created_at  Int?
+    Profile     Profile @relation(fields: [profileId], references: [id])
+    profileId   Int
 }
 
-model profile {
+model Profile {
     id                Int     @id @default(autoincrement())
     email             String  @unique
     password          String
     name              String?
-    avatar            String?
+    avatar            String? @default("images/default-user-icon.jpg")
     monthly_budget    Int?
     days_per_week     Int?
     hours_per_day     Int?
     vacation_per_year Int?
     value_hour        Float?
+    jobs              Job[]
 }

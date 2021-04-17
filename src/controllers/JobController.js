@@ -8,10 +8,12 @@ module.exports = {
   },
 
   async save(req, res) {
-    await Job.create({
+    const userId = req.session.user.id
+
+    await Job.create(userId, {
       name: req.body.name,
-      "daily-hours": req.body["daily-hours"],
-      "total-hours": req.body["total-hours"],
+      "daily-hours": Number(req.body["daily-hours"]),
+      "total-hours": Number(req.body["total-hours"]),
       created_at: Date.now() // Atribuindo a data de hoje
     })
 
@@ -20,7 +22,8 @@ module.exports = {
 
   async show(req, res) {
     const jobId = req.params.id
-    const jobs = await Job.get()
+    const userId = req.session.user.id
+    const jobs = await Job.get(userId)
 
     const job = jobs.find(job => Number(job.id) === Number(jobId))
 
@@ -28,7 +31,7 @@ module.exports = {
       return res.send("Job not found!")
     }
 
-    const profile = await Profile.get()
+    const profile = await Profile.get(userId)
 
     job.budget = JobUtils.calculateBudget(job, profile["value-hour"])
 
@@ -36,12 +39,12 @@ module.exports = {
   },
 
   async update(req, res) {
-    const jobId = req.params.id
+    const jobId = Number(req.params.id)
 
     const updatedJob = {
       name: req.body.name,
-      "total-hours": req.body["total-hours"],
-      "daily-hours": req.body["daily-hours"]
+      "total-hours": Number(req.body["total-hours"]),
+      "daily-hours": Number(req.body["daily-hours"])
     }
 
     await Job.update(updatedJob, jobId)
@@ -51,8 +54,31 @@ module.exports = {
 
   async delete(req, res) {
     const jobId = req.params.id
+    const { email } = req.session.user
 
-    await Job.delete(jobId)
+    const jobWithUser = await Profile.get_by_email_include_posts(email)
+
+    // console.dir(jobWithUser.jobs)
+    // console.dir(jobId)
+
+    let deleted_success = false
+
+    jobWithUser.jobs.forEach(element => {
+      if (element.id == jobId) {
+        deleted_success = true
+      }
+    })
+
+    if (deleted_success) {
+      await Job.delete(jobId)
+      // const teeeeee = await Job.delete(jobId)
+      // console.dir(teeeeee)
+    }
+
+    // console.dir(resultado)
+    // if (!deleted_success) {
+    //   return res.redirect("/error")
+    // }
 
     return res.redirect("/")
   }
