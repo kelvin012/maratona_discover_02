@@ -28,3 +28,16 @@ input {
   border: 1px solid transparent;
   border-radius: 0.25rem;
 }
+
+.registtro-call {
+  color: var(--color-card-title);
+  margin-top: 20px;
+}
+a.registro-button {
+  color: var(--color-save);
+}
+
+a.registro-button:hover {
+  text-decoration: underline;
+  color: var(--color-secondary-hover);
+}
