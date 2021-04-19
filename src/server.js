@@ -30,5 +30,7 @@ server.use(session({ secret: process.env.SECRET_SESSION, resave: false, saveUnin
 // Rotas da aplicação
 server.use(routes)
 
-// Iniciando o servidor Node.js na porta 3000
-server.listen(3000, () => console.log("Servidor Node.JS Rodando. \n=> http://localhost:3000"))
+let porta_http = process.env.PORT || 3000
+
+// Iniciando o servidor Node.js
+server.listen(porta_http, () => console.log(`Servidor Node.JS Rodando. \n=> http://localhost:${porta_http}`))

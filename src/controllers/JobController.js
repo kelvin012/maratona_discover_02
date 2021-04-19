@@ -58,9 +58,6 @@ module.exports = {
 
     const jobWithUser = await Profile.get_by_email_include_posts(email)
 
-    // console.dir(jobWithUser.jobs)
-    // console.dir(jobId)
-
     let deleted_success = false
 
     jobWithUser.jobs.forEach(element => {
@@ -71,14 +68,7 @@ module.exports = {
 
     if (deleted_success) {
       await Job.delete(jobId)
-      // const teeeeee = await Job.delete(jobId)
-      // console.dir(teeeeee)
     }
-
-    // console.dir(resultado)
-    // if (!deleted_success) {
-    //   return res.redirect("/error")
-    // }
 
     return res.redirect("/")
   }

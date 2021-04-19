@@ -32,10 +32,21 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - EJS
 - Express
 - SQLite
+- Prisma
 
 ## 💻 Projeto
 
 O JobsCalc é uma aplicação de estimativa de cálculo para projetos freelancer, onde é possível cadastrar e excluir jobs (projetos), obtendo uma estimativa de custo de cada job. Além disso, é possível traçar o valor da hora da pessoa que estará usando o sistema 💰
+
+## ⚙️ Configurações
+
+```
+Crie um arquivo .env com as seguintes instruções:
+
+DATABASE_URL = "file:../../../database.sqlite"
+SECRET_SESSION = "sua-chave-secreta-criptografada-e-muito-segura"
+
+```
 
 ## 🔖 Layout
 
@@ -47,4 +58,4 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](.github/LICENSE.
 
 ---
 
-Feito com ♥ by Rocketseat :wave: [Participe da nossa comunidade!](https://discordapp.com/invite/gCRAFhc)
+Feito com ♥ by Kelvin012, Rocketseat :wave: [Participe da nossa comunidade!](https://discordapp.com/invite/gCRAFhc)

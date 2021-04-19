@@ -16,10 +16,10 @@ module.exports = {
 
     if (userCreated.error) {
       if (userCreated.code == "P2002") {
-        return res.render("signup", { message: "Email ja cadastrado!", color: "red" })
+        return res.render("signup", { message: "Email ja cadastrado!", color: "#f8d7da" })
       }
 
-      return res.render("signup", { message: "Error interno tente novamente.", color: "red" })
+      return res.render("signup", { message: "Error interno tente novamente.", color: "#f8d7da" })
     }
 
     userCreated.password = undefined
@@ -43,11 +43,11 @@ module.exports = {
     const user = await Profile.get_by_email(email)
 
     if (!user) {
-      return res.render("signin", { message: "Usuario não encontrado!", color: "red" }) // adicionar mensagem de error pela tecnica conhecida como Flash/Flush message ?
+      return res.render("signin", { message: "Usuario não encontrado!", color: "#f8d7da" }) // adicionar mensagem de error pela tecnica conhecida como Flash?Flush message ?
     }
 
     if (!(await bcrypt.compare(password, user.password))) {
-      return res.render("signin", { message: "Senha errada!", color: "red" })
+      return res.render("signin", { message: "Senha errada!", color: "#f8d7da" })
     }
 
     user.password = undefined
@@ -55,9 +55,6 @@ module.exports = {
     req.session.user = user
 
     return res.redirect("/")
-    // return res.send(user)
-    // return res.render("signin", { message: "logado com sucesso!", color: "green" })
-    //falta criar o utils para verificar a hash com o hash da senha passada pelo user acho que vai ter que ser feita no model ?
   },
 
   async logout(req, res) {
@@ -67,13 +64,9 @@ module.exports = {
   },
 
   async update(req, res) {
-    // req.body para pegar os dados
     const data = req.body
 
     const userId = req.session.user.id
-
-    // console.log(data)
-    // TODO fazer uma verificação para os campos nao poderem ser nulos
 
     // definir quantas semanas tem num ano : 52
     const weekPerYear = 52
@@ -88,18 +81,9 @@ module.exports = {
     const monthlyTotalHours = weekTotalHours * weeksPerMonth
 
     // qual o será o valor da minha hora?
-    // const valueHour = parseInt((data["value-hour"] = data["monthly-budget"] / monthlyTotalHours))
-    // se tirar o parseint ele fica com numero muito quebrados
     const valueHour = Math.ceil((data["value-hour"] = data["monthly-budget"] / monthlyTotalHours))
-    // coloquei o match.ceil
 
     const profile = await Profile.get(userId)
-
-    // await Profile.update({
-    //   ...profile,
-    //   ...req.body,
-    //   "value-hour": valueHour
-    // })
 
     await Profile.update(userId, {
       ...profile,

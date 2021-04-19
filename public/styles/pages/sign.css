@@ -13,12 +13,18 @@ input {
 }
 
 .div-flush {
-  /* background-color: green; */
   width: 30vw;
   padding: 10px;
   margin-bottom: 15px;
 }
 
 .message-flush {
-  color: white;
+  color: var(--color-card-title);
+}
+
+.alert {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
 }
